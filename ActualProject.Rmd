@@ -1,0 +1,73 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+metadata = read_csv("clean_metadata.csv")
+metadata  = metadata %>% select(-X1)
+metadata
+```
+
+
+
+```{r}
+metadata = metadata %>%
+  separate(col = release_date, into = c("year", "month", "day"), sep = '-')
+
+metadata
+```
+
+
+```{r}
+metadata %>% 
+  group_by(month) %>%
+  summarize(median_revenue = median(revenue, na.rm = T)) %>%
+  arrange(desc(median_revenue))
+  
+```
+
+```{r}
+metadata %>% filter(revenue < 2e+9) %>%
+  ggplot(aes(month, revenue, fill = month)) + geom_boxplot(show.legend = F) + coord_flip()
+```
+
+
+
+```{r}
+metadata %>%
+  ggplot(aes(budget, revenue)) + geom_point() + geom_smooth() + geom_smooth(method = 'lm', color = 'tomato')
+```
+```{r}
+metadata %>%
+  arrange(desc(revenue)) %>%
+  select(title, revenue, budget, year) %>%
+  head()
+```
+
+
+```{r}
+metadata %>%
+  filter(budget > 2e+8) %>%
+  arrange((revenue)) %>%
+  select(title, revenue, budget, year) %>%
+  head()
+```
+
+
+```{r}
+metadata %>% 
+    get_correlation(revenue ~ budget, na.rm = T)
+```
+
+
+
+```{r}
+metadata %>%
+  ggplot(aes(year, revenue)) + geom_point()
+```
+
+
+
+
+
