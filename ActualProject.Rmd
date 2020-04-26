@@ -1,9 +1,12 @@
 ---
-title: "R Notebook"
+title: "Movies Project"
 output: html_notebook
 ---
 
 ```{r}
+library(tidyverse)
+library(moderndive)
+library(infer)
 metadata = read_csv("clean_metadata.csv")
 metadata  = metadata %>% select(-X1)
 metadata
