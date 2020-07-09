@@ -12,6 +12,10 @@ metadata  = metadata %>% select(-X1)
 metadata
 ```
 
+```{r}
+metadata %>%
+  arrange(desc(budget))
+```
 
 
 ```{r}
@@ -31,7 +35,7 @@ metadata %>%
 ```
 
 ```{r}
-metadata %>% filter(revenue < 2e+9) %>%
+metadata %>% filter(revenue < 1.5e+9) %>%
   ggplot(aes(month, revenue, fill = month)) + geom_boxplot(show.legend = F) + coord_flip()
 ```
 
@@ -39,7 +43,7 @@ metadata %>% filter(revenue < 2e+9) %>%
 
 ```{r}
 metadata %>%
-  ggplot(aes(budget, revenue)) + geom_point() + geom_smooth() + geom_smooth(method = 'lm', color = 'tomato')
+  ggplot(aes(budget, vote_average)) + geom_point() + geom_smooth() + geom_smooth(method = 'lm', color = 'tomato') + ggtitle("Average Vote vs. Budget") + xlab("Budget") + ylab("Average Vote")
 ```
 ```{r}
 metadata %>%
@@ -66,11 +70,137 @@ metadata %>%
 
 
 ```{r}
+metadata %>% filter(popularity < 150) %>%
+  ggplot(aes(popularity, vote_average)) + geom_point() + geom_smooth()
+```
+
+
+
+```{r}
+
+```
+
+```{r}
 metadata %>%
-  ggplot(aes(year, revenue)) + geom_point()
+  ggplot(aes(vote_average, revenue)) + geom_point() + geom_smooth() + geom_smooth(method = 'lm', color = 'tomato')
+```
+
+
+
+```{r}
+metadata %>%
+  ggplot(aes(budget, vote_average)) + geom_point() + geom_smooth() + geom_smooth(method = 'lm', color = 'tomato')
 ```
 
 
 
 
 
+```{r}
+metadata %>% filter(popularity < 50) %>%
+  ggplot(aes(popularity, vote_average)) + geom_point() + geom_smooth() + geom_smooth(method = 'lm', color = 'tomato')
+```
+
+```{r}
+metadata %>% 
+  arrange(desc(popularity))
+```
+
+
+
+```{r}
+metadata %>%
+  ggplot(aes(popularity, vote_average)) + geom_point() + geom_smooth() + geom_smooth(method = 'lm', color = 'tomato')
+```
+
+
+```{r}
+metadata %>% filter(original_language == "ja" | original_language == "it" | original_language == "fr" |original_language == "en" ) %>% filter(revenue < 1e+9) %>% 
+  ggplot(aes(original_language, revenue, fill = original_language)) + geom_boxplot() + coord_flip()
+
+```
+
+
+```{r}
+metadata %>%
+  arrange((runtime))
+```
+
+
+```{r}
+metadata %>% filter(revenue < 1e+9) %>%
+  ggplot(aes(month, revenue, fill = month)) + geom_boxplot(show.legend = F) + coord_flip()
+```
+
+
+
+```{r}
+metadata %>% filter(budget < 2e+8) %>%
+  ggplot(aes(budget, vote_average)) + geom_point() + geom_smooth()
+```
+
+```{r}
+budget_vote_average_mod = lm(vote_average ~ budget, data = metadata)
+
+budget_vote_average_mod %>%
+  get_regression_table()
+```
+
+yhat = 6.46 + 0x
+
+
+```{r}
+metadata %>% 
+    get_correlation(vote_average ~ budget, na.rm = T)
+```
+
+
+
+
+```{r}
+-0.08975617 * -0.08975617
+```
+
+
+```{r}
+metadata %>%
+  ggplot(aes(month, vote_average, fill = month)) + geom_boxplot(show.legend = F) + coord_flip()
+```
+
+
+
+```{r}
+metadata %>%
+  ggplot(aes(popularity, popularity)) + geom_point(show.legend = F)
+```
+
+
+```{r}
+metadata %>%
+  ggplot(aes(budget, revenue)) + geom_point(show.legend = F) + geom_smooth() + geom_smooth(method = "lm", color = "tomato")
+```
+
+
+```{r}
+metadata %>%
+  arrange(desc(popularity))
+```
+
+```{r}
+metadata %>% 
+    get_correlation(revenue ~ budget, na.rm = T)
+```
+
+
+```{r}
+0.7091052 * 0.7091052
+```
+
+```{r}
+budget_revenue_mod = lm(revenue ~ budget, data = metadata)
+
+budget_revenue_mod %>%
+  get_regression_table()
+```
+
+yhat = 2998573.384 + 3.007x
