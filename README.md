@@ -1,4 +1,7 @@
 # MoviesDataProject
+Can movie budget and revenue be used to predict ratings?
+
+
 Intro Stats Data Science Movie Dataset Project
 
 
